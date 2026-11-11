@@ -1,15 +1,26 @@
-# Word Trail · 字母之间
+# Word Trail · 本地版
 
-按话题分类的英文猜词游戏，无需登录，可离线运行。
+在线游玩：https://blanketgj-ship-it.github.io/word-trail/ 。无需登录。
 
-双击 start.cmd 或 index.html 即可游玩。
+## 启动
 
-12 个话题：动物、美食、旅行、自然、居家、运动、宇宙、科技、艺术、职业、穿搭、情绪，共 906 条话题词库条目。
+双击 start.cmd 或 index.html，可离线游玩，无需登录或安装依赖。
 
-输入当前话题词库中的单词，游戏会提示目标在 A–Z 排列中的上方或下方多少位。支持词库查阅、探索范围、猜词记录和随机换词。
+本地服务器：`node server.cjs`，默认 http://localhost:3001。
+逻辑测试：`node verify.cjs`。
 
-本地预览：node server.cjs，然后打开 http://localhost:3001。
+## 玩法
 
-逻辑验证：node verify.cjs。
+- 24 个话题，英文和中文使用独立词库，界面可切换。
+- 英文按 A–Z 排序，中文按拼音排序；猜测记录使用同样的顺序。
+- 距离是当前话题词库中的位置差，相邻词相差 1 位。
+- 一个字符的增、删、改、相邻颠倒可容错，匹配多个词时由玩家选择。
+- 英文姓名和片名支持空格、连字符、重音和标点的宽松匹配。
+- 菜单可切换话题、查找词库、开始新一局；提示按钮揭示字母或汉字。
 
-GitHub Pages 配置：main 分支、根目录。
+## 词库来源
+
+见 SOURCES.md 和 licenses/。这不是牛津全量词库。
+
+重建词库：将 NLTK 分发的 wordnet.zip 和 omw-1.4.zip 解压到父目录的 .local-data/ 下，然后运行 `node scripts/build-vocabulary.cjs`。
+新增经授权的数据可补入 scripts/curated.cjs 的对应话题，并重新生成 vocabulary.js。保留源数据许可说明。
